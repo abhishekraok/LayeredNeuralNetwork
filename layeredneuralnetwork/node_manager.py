@@ -30,9 +30,25 @@ class NodeManager:
         if node_name not in self.node_name_to_node:
             raise ValueError('Node name ' + node_name + ' not found in node manager')
         utilities.check_2d_shape(X, self.input_dimension)
+        self.deactivate_all()
         self.activate_input(X)
         return self.node_name_to_node[node_name].get_output(X)
 
     def activate_input(self, X):
         for i, input_node in enumerate(self.input_nodes):
-            input_node.set_output(X[:,i])
+            input_node.set_output(X[:, i])
+
+    def get_input_names(self):
+        return [i.name for i in self.input_nodes]
+
+    def add_node(self, node):
+        """"
+        :type node: node.Node
+        """
+        if node.name in self.node_name_to_node:
+            raise ValueError('Node already exists: Name ' + node.name)
+        self.node_name_to_node[node.name] = node
+
+    def deactivate_all(self):
+        for node in self.node_name_to_node.values():
+            node.deactivate()

@@ -34,11 +34,17 @@ class Node:
         features = np.zeros(shape=X.shape)
         for column, node_name in enumerate(self.input_names):
             features[:, column] = self.node_manager.get_output(X, node_name)
-        return self.transform_function.transform(features)
+        calculated_output = self.transform_function.transform(features)
+        self.set_output(calculated_output)
+        return self.output
 
     def set_output(self, output):
         self.output = output
         self.is_activated = True
+
+    def deactivate(self):
+        self.output = None
+        self.is_activated = False
 
     @staticmethod
     def create_input_node(name, node_manager):
