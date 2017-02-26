@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from LayeredNeuralNetwork import LayeredNeuralNetwork
+from layered_neural_network import LayeredNeuralNetwork
 
 
 class TestLayeredNeuralNetwork(unittest.TestCase):
