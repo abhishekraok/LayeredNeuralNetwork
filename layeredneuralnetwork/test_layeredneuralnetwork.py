@@ -28,7 +28,7 @@ class TestNodeManager(unittest.TestCase):
         node_manager = NodeManager(input_dimension)
         X = np.random.rand(sample_size, input_dimension)
         output = node_manager.get_output(X, 'input_0')
-        self.assertEqual(X, output[:,0])
+        self.assertTrue(np.array_equal(X[:,0], output))
 
 
 class TestTransformFunction(unittest.TestCase):

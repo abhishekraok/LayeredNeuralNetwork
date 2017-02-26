@@ -1,4 +1,5 @@
 import node
+import utilities
 
 input_node_base_name = 'input_'
 
@@ -11,9 +12,11 @@ class NodeManager:
         """
         self.node_name_to_node = {}  # type: Dict from str to node.Node
         self.input_dimension = input_dimension
+        self.input_nodes = []  # type: List of node.Node
         for i in range(input_dimension):
             input_node = node.Node.create_input_node(name=input_node_base_name + str(i), node_manager=self)
             self.node_name_to_node[input_node.name] = input_node
+            self.input_nodes.append(input_node)
 
     def get_output(self, X, node_name):
         """
@@ -26,5 +29,10 @@ class NodeManager:
         """
         if node_name not in self.node_name_to_node:
             raise ValueError('Node name ' + node_name + ' not found in node manager')
+        utilities.check_2d_shape(X, self.input_dimension)
+        self.activate_input(X)
         return self.node_name_to_node[node_name].get_output(X)
 
+    def activate_input(self, X):
+        for i, input_node in enumerate(self.input_nodes):
+            input_node.set_output(X[:,i])
