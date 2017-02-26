@@ -1,9 +1,10 @@
 # LayeredNeuralNetwork
 Neural Network that uses features learnt from past training.
 
-This is implementation of Layered Neural Network (LNN) first proposed in this (MS Thesis)[https://etda.libraries.psu.edu/catalog/26405]
+This is implementation of Layered Neural Network (LNN) first proposed in this [MS Thesis](https://etda.libraries.psu.edu/catalog/26405)
 
 This is a transfer learning technique where learned output from past training is used as feature for next task.
+![LNN structure](https://artmapstore.blob.core.windows.net/firstnodes/photos/LNN.PNG)
 
 
 ## API 
