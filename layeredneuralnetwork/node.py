@@ -26,6 +26,13 @@ class Node:
         self.input_dimension = len(input_names)
 
     def get_output(self, X):
+        """
+        Activates node and transforms X.
+
+        :param X: numpy array of dimension (samples, input_dimension)
+        :type X: np.array
+        :rtype: np.array
+        """
         if self.is_activated:
             if self.output is None:
                 raise Exception('Node ' + self.name + ' is activated but output is None')

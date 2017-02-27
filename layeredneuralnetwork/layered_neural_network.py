@@ -47,7 +47,7 @@ class LayeredNeuralNetwork():
         max_strength = 0
         for label in self.label_to_node_name.keys():
             features = self.node_manager.get_output(X, label)
-            feature_strength = features.mean_square()
+            feature_strength = (features**2).mean()
             if feature_strength > max_strength:
                 max_strength = feature_strength
                 max_label = label
