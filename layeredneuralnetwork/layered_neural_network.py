@@ -1,9 +1,12 @@
 import numpy as np
+import node_manager
 
 
 class LayeredNeuralNetwork():
     def __init__(self, input_dimension):
         self.input_dimension = input_dimension
+        self.node_manager = node_manager.NodeManager(input_dimension)
+        self.label_to_node_name = {}
 
     def train(self, X, Y, label):
         """
@@ -26,7 +29,11 @@ class LayeredNeuralNetwork():
         :return: a numpy array of size (samples) containing 1,0
         :rtype: np.array
         """
-        pass
+        if not label in self.label_to_node_name:
+            raise ValueError('No label named ' + label + ' in this LNN')
+        node_name = self.label_to_node_name[label]
+        features = self.node_manager.get_output(X, node_name)
+        return np.array(features > 0, dtype=np.int)
 
 
     def identify(self, X):
@@ -36,4 +43,12 @@ class LayeredNeuralNetwork():
         :return: guessed class name
         :rtype: str
         """
-        pass
+        max_label = self.label_to_node_name.keys()[0]
+        max_strength = 0
+        for label in self.label_to_node_name.keys():
+            features = self.node_manager.get_output(X, label)
+            feature_strength = features.mean_square()
+            if feature_strength > max_strength:
+                max_strength = feature_strength
+                max_label = label
+        return max_label

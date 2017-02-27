@@ -27,7 +27,7 @@ class NodeManager:
         :return: numpy array of size (samples)
         :rtype: np.array
         """
-        if node_name not in self.node_name_to_node:
+        if not self.has_node_name(node_name):
             raise ValueError('Node name ' + node_name + ' not found in node manager')
         utilities.check_2d_shape(X, self.input_dimension)
         self.deactivate_all()
@@ -52,3 +52,6 @@ class NodeManager:
     def deactivate_all(self):
         for node in self.node_name_to_node.values():
             node.deactivate()
+
+    def has_node_name(self, label):
+        return label in self.node_name_to_node
