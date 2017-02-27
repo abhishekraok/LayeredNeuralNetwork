@@ -103,5 +103,9 @@ class LayeredNeuralNetwork():
         return len(self.labels)
 
     def score(self, X, Y, label):
+        """
+        Gets the F1 score for given input for given label.
+        :rtype: float
+        """
         predicted_y = self.predict(X, label)
         return metrics.f1_score(Y, predicted_y)

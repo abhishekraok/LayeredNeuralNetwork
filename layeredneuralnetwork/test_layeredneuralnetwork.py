@@ -17,6 +17,17 @@ class TestLayeredNeuralNetwork(unittest.TestCase):
         for i in range(2):
             model.fit(X, Y, base_label + str(i))
 
+    def test_identity_learn_perfect(self):
+        input_dimension = 1
+        sample_size = 5
+        Y = np.random.randint(0, high=2, size=sample_size)
+        X = Y.reshape([-1,1])
+        label = 'identity'
+        model = LayeredNeuralNetwork(input_dimension=input_dimension)
+        model.fit(X, Y, label)
+        score = model.score(X,Y, label=label)
+        self.assertEqual(1, score)
+
 
 class TestNodeManager(unittest.TestCase):
     def test_simple_get_output_from_input(self):
