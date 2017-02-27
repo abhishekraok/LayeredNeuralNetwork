@@ -1,7 +1,7 @@
 import numpy as np
 import node_manager
 import node
-from sklearn import svm
+from sklearn import svm, metrics
 import transform_function
 
 retrain_threshold_f1_score = 0.9
@@ -28,7 +28,7 @@ class LayeredNeuralNetwork():
         print('Training for label ' + label)
         if label in self.labels:
             score = self.score(X, Y, label)
-            if score > retrain_threshold_f1_score
+            if score > retrain_threshold_f1_score:
                 print('Label {0} already exists with score {1}. Not retraining'.format(label, score))
                 return False
             else:
@@ -97,4 +97,5 @@ class LayeredNeuralNetwork():
         return len(self.labels)
 
     def score(self, X, Y, label):
-        pass
+        predicted_y = self.predict(X, label)
+        return metrics.f1_score(Y, predicted_y)
