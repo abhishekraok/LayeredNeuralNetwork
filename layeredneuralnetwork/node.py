@@ -1,5 +1,5 @@
 import numpy as np
-from layeredneuralnetwork.utilities import check_2d_shape
+from utilities import check_2d_shape
 
 import node_manager
 import transform_function

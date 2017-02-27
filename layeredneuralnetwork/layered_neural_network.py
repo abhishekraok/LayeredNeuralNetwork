@@ -14,7 +14,7 @@ class LayeredNeuralNetwork():
         self.label_to_node_name = {}
         self.labels = []
 
-    def train(self, X, Y, label):
+    def fit(self, X, Y, label):
         """
         Trains the model using data X for class named "label".
         Y is binary indicating presence/absence of class.
@@ -33,14 +33,17 @@ class LayeredNeuralNetwork():
                 return False
             else:
                 print('Label {0} exists with score {1}. Retraining'.format(label, score))
+        self.fit_new_node(X, Y, label)
+        return True
 
+    def fit_new_node(self, X, Y, label):
         sample_count = X.shape[0]
         input_and_features = np.zeros(shape=[sample_count, self.input_dimension + len(self.labels)])
         input_and_features[:, :self.input_dimension] = X
         input_and_features[:, self.input_dimension:] = self.activate_all(X)
         linear_svc = svm.LinearSVC()
         linear_svc.fit(input_and_features, Y)
-        score = linear_svc.score(X, Y)
+        score = linear_svc.score(input_and_features, Y)
         print('Trained new Linear SVC with score ' + str(score))
         learned_transform_function = transform_function.LinearTransformFunction(
             input_dimension=input_and_features.shape[1],
@@ -53,6 +56,9 @@ class LayeredNeuralNetwork():
                              node_manager=self.node_manager,
                              is_input=False)
         self.node_manager.add_node(new_node)
+        if label not in self.label_to_node_name:
+            self.labels.append(label)
+            self.label_to_node_name[label] = node_name
 
     def predict(self, X, label):
         """
@@ -79,7 +85,7 @@ class LayeredNeuralNetwork():
         sample_count = X.shape[0]
         result = np.zeros(shape=[sample_count, self.feature_count()])
         for i, label in enumerate(self.labels):
-            result[:, i] = self.node_manager.get_output(X, label)
+            result[:, i] = self.node_manager.get_output(X, self.label_to_node_name[label])
         return result
 
     def identify(self, X):

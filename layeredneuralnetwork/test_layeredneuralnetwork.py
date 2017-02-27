@@ -15,7 +15,7 @@ class TestLayeredNeuralNetwork(unittest.TestCase):
         base_label = 'test_train_'
         model = LayeredNeuralNetwork(input_dimension=input_dimension)
         for i in range(2):
-            model.train(X, Y, base_label + str(i))
+            model.fit(X, Y, base_label + str(i))
 
 
 class TestNodeManager(unittest.TestCase):
