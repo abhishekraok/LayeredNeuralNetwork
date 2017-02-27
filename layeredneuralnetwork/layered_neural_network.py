@@ -51,7 +51,9 @@ class LayeredNeuralNetwork():
             bias=linear_svc.intercept_)
         # todo increment version rather than create random number
         node_name = label + '_' + str(np.random.randint(low=0, high=999))
-        new_node = node.Node(name=node_name, input_names=self.node_manager.get_input_names() + self.labels,
+        input_names = self.node_manager.get_input_names() + self.latest_node_names()
+        new_node = node.Node(name=node_name,
+                             input_names=input_names,
                              transform_function=learned_transform_function,
                              node_manager=self.node_manager,
                              is_input=False)
@@ -59,6 +61,9 @@ class LayeredNeuralNetwork():
         if label not in self.label_to_node_name:
             self.labels.append(label)
             self.label_to_node_name[label] = node_name
+
+    def latest_node_names(self):
+        return [self.label_to_node_name[i] for i in self.labels]
 
     def predict(self, X, label):
         """

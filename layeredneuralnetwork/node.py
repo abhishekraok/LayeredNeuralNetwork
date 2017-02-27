@@ -23,7 +23,7 @@ class Node:
         self.output = None
         self.node_manager = node_manager
         self.is_input = is_input
-        self.input_dimension = len(input_names)
+        self.transform_function_input_dimension = len(input_names)
 
     def get_output(self, X):
         """
@@ -37,8 +37,8 @@ class Node:
             if self.output is None:
                 raise Exception('Node ' + self.name + ' is activated but output is None')
             return self.output
-        check_2d_shape(X, self.input_dimension)
-        features = np.zeros(shape=X.shape)
+        sample_size = X.shape[0]
+        features = np.zeros(shape=[sample_size, self.transform_function_input_dimension])
         for column, node_name in enumerate(self.input_names):
             features[:, column] = self.node_manager.get_output(X, node_name)
         calculated_output = self.transform_function.transform(features)
