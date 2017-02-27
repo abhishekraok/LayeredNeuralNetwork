@@ -38,7 +38,7 @@ class LayeredNeuralNetwork():
         input_and_features = np.zeros(shape=[sample_count, self.input_dimension + len(self.labels)])
         input_and_features[:, :self.input_dimension] = X
         input_and_features[:, self.input_dimension:] = self.activate_all(X)
-        linear_svc = svm.LinearSVC(penalty='l1')
+        linear_svc = svm.LinearSVC()
         linear_svc.fit(input_and_features, Y)
         score = linear_svc.score(X, Y)
         print('Trained new Linear SVC with score ' + str(score))
@@ -46,7 +46,7 @@ class LayeredNeuralNetwork():
             input_dimension=input_and_features.shape[1],
             weights=linear_svc.coef_,
             bias=linear_svc.intercept_)
-
+        # todo increment version rather than create random number
         node_name = label + '_' + str(np.random.randint(low=0, high=999))
         new_node = node.Node(name=node_name, input_names=self.node_manager.get_input_names() + self.labels,
                              transform_function=learned_transform_function,

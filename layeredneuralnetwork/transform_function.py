@@ -21,10 +21,18 @@ class TransformFunction:
 
 class LinearTransformFunction(TransformFunction):
     def __init__(self, input_dimension, weights, bias):
-        if len(weights.shape) is not 1 or weights.shape[0] is not input_dimension:
-            raise ValueError('Weight shape is improper ' + str(weights.shape))
+        if len(weights.shape) != 1 and len(weights.shape) != 2:
+            raise ValueError('Weight dimension is improper. Needs to be 1 or 0. But is '
+                             + str(weights.shape))
+        if len(weights.shape) == 2:
+            flattened_weights = weights.flatten()
+        else:
+            flattened_weights = weights
+        if flattened_weights.shape[0] != input_dimension:
+            raise ValueError('Weight shape is improper. Needs to be '
+                             + str(input_dimension) + ' but is ' + str(weights.shape))
         TransformFunction.__init__(self, input_dimension)
-        self.weights = weights
+        self.weights = flattened_weights
         self.bias = bias
 
     def transform(self, X):
