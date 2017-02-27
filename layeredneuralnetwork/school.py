@@ -33,12 +33,14 @@ def teach_or(classifier):
 
 def teach_xor(classifier):
     """
-    Teaches the XOR task
+    Teaches the XOR task.
+
+    Pre-requisite AND task, OR task.
 
     :type classifier: layered_neural_network.LayeredNeuralNetwork
     :return: F1 Score in learning this task
     """
-    return teach_binary_function(classifier, 'xor', lambda a, b: a ^ b)
+    return teach_binary_function(classifier, 'xor', lambda a, b: int(a) ^ int(b))
 
 
 def teach_binary_function(classifier, label, fx):
@@ -56,7 +58,7 @@ def teach_binary_function(classifier, label, fx):
         raise ValueError('Need classifier with at least input dimension of 2')
     sample_size = 100
     X = np.random.randn(sample_size, classifier_dimension)
-    X[:, :2] = np.random.randint(low=0, high=2, size=[sample_size, 2])
+    X[:, :2] = np.random.randint(low=0, high=2, size=[sample_size, 2], dtype=np.int)
     Y = np.array([fx(i, j) for i, j in zip(X[:, 0], X[:, 1])], dtype=np.int)
     classifier.fit(X, Y, label=label)
     return classifier.score(X, Y, label)
