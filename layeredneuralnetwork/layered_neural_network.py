@@ -114,3 +114,10 @@ class LayeredNeuralNetwork():
         """
         predicted_y = self.predict(X, label)
         return metrics.f1_score(Y, predicted_y)
+
+    def get_weights(self):
+        weights = np.zeros(shape=[len(self.labels), self.input_dimension + len(self.labels) - 1])
+        for i, label in enumerate(self.labels):
+            label_weight = self.node_manager.get_weight(self.label_to_node_name[label])
+            weights[i, :label_weight.shape[0]] = label_weight
+        return weights

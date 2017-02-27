@@ -55,3 +55,7 @@ class NodeManager:
 
     def has_node_name(self, label):
         return label in self.node_name_to_node
+
+    def get_weight(self, node_name):
+        node = self.node_name_to_node[node_name]
+        return node.transform_function.weights
