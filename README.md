@@ -23,9 +23,10 @@ X is a numpy matrix of size (samples, features), Y is a numpy array of integers 
 
 ## To Do
 
-1. Normalize input
-2. Create notebooks
-3. __str__
+- Normalize input
+- Create notebooks
+- __str__
+- plot [classifier like scikit-learn](http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
 
 
 ## Done 
