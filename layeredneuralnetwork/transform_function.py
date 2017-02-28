@@ -2,6 +2,10 @@ import numpy as np
 from sklearn.svm import LinearSVC
 
 
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
 class TransformFunction:
     """
     Interface, transforms input into output based on some function like neural network node.
@@ -37,7 +41,7 @@ class LinearTransformFunction(TransformFunction):
         self.bias = bias
 
     def transform(self, X):
-        return np.dot(X, self.weights) + self.bias
+        return sigmoid(np.dot(X, self.weights) + self.bias)
 
     def get_weights(self):
         return np.hstack([self.weights, self.bias]).flatten()
@@ -55,7 +59,7 @@ class SVCTransformFunction(TransformFunction):
         self.svm = svm
 
     def transform(self, X):
-        return self.svm.decision_function(X)
+        return sigmoid(self.svm.decision_function(X))
 
     def get_weights(self):
         return np.hstack([self.svm.coef_, [self.svm.intercept_]]).flatten()

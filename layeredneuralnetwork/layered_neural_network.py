@@ -79,7 +79,8 @@ class LayeredNeuralNetwork(ClassifierInterface):
             raise ValueError('No label named ' + label + ' in this LNN')
         node_name = self.label_to_node_name[label]
         features = self.node_manager.get_output(X, node_name)
-        return np.array(features > 0, dtype=np.int)
+        return np.array(features > 0.5, dtype=np.int)
+
 
     def activate_all(self, X):
         """
