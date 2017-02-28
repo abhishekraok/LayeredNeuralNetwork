@@ -40,7 +40,7 @@ class LinearTransformFunction(TransformFunction):
         return np.dot(X, self.weights) + self.bias
 
     def get_weights(self):
-        return np.hstack([self.weights, self.bias])
+        return np.hstack([self.weights, self.bias]).flatten()
 
 
 class SVCTransformFunction(TransformFunction):
@@ -58,4 +58,4 @@ class SVCTransformFunction(TransformFunction):
         return self.svm.decision_function(X)
 
     def get_weights(self):
-        return np.hstack([self.svm.coef_, [self.svm.intercept_]])
+        return np.hstack([self.svm.coef_, [self.svm.intercept_]]).flatten()
