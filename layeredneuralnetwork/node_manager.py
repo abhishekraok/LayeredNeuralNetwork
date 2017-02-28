@@ -1,5 +1,5 @@
-import node
-import utilities
+from layeredneuralnetwork import node
+from layeredneuralnetwork import utilities
 
 input_node_base_name = 'input_'
 
