@@ -1,7 +1,7 @@
 import unittest
-from layered_neural_network import LayeredNeuralNetwork
-from school import binary
-from school import frequency
+from layeredneuralnetwork.layered_neural_network import LayeredNeuralNetwork
+from layeredneuralnetwork.school import binary
+from layeredneuralnetwork.school import frequency
 
 
 class TestLayeredNeuralNetworkSchool(unittest.TestCase):

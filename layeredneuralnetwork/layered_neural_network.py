@@ -3,7 +3,7 @@ from layeredneuralnetwork import node_manager
 from layeredneuralnetwork import node
 from sklearn import svm, metrics
 from layeredneuralnetwork import transform_function
-from classifier_interface import ClassifierInterface
+from layeredneuralnetwork.classifier_interface import ClassifierInterface
 from layeredneuralnetwork import utilities
 
 retrain_threshold_f1_score = 0.9

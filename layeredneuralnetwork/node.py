@@ -1,8 +1,10 @@
 import numpy as np
-from utilities import check_2d_shape
 
-import node_manager
-import transform_function
+try:
+    from layeredneuralnetwork import node_manager
+except ImportError:
+    import node_manager
+from layeredneuralnetwork import transform_function
 
 
 class Node:
