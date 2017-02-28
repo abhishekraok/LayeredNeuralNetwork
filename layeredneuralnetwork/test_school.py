@@ -23,9 +23,8 @@ class TestLayeredNeuralNetworkSchool(unittest.TestCase):
         score = binary.Binary.teach_xor(model)
         self.assertLess(score, 0.7)
 
-    @unittest.skip('Need to investigate further')
     def test_train_xor_score_succeed_with_pre_requisite(self):
-        input_dimension = 9
+        input_dimension = 2
         model = LayeredNeuralNetwork(input_dimension=input_dimension)
         and_score = binary.Binary.teach_and(model)
         self.assertEqual(1, and_score)
