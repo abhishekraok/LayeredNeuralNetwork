@@ -1,10 +1,10 @@
 import numpy as np
-import node_manager
-import node
+from layeredneuralnetwork import node_manager
+from layeredneuralnetwork import node
 from sklearn import svm, metrics
-import transform_function
+from layeredneuralnetwork import transform_function
 from classifier_interface import ClassifierInterface
-import utilities
+from layeredneuralnetwork import utilities
 
 retrain_threshold_f1_score = 0.9
 
