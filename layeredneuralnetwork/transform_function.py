@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.svm import LinearSVC
 
 
 class TransformFunction:
@@ -37,3 +38,24 @@ class LinearTransformFunction(TransformFunction):
 
     def transform(self, X):
         return np.dot(X, self.weights) + self.bias
+
+    def get_weights(self):
+        return np.hstack([self.weights, self.bias])
+
+
+class SVCTransformFunction(TransformFunction):
+    def __init__(self, input_dimension, svm):
+        """
+        Linear Support Vector Machine
+
+        :type input_dimension: int
+        :type svm: LinearSVC
+        """
+        TransformFunction.__init__(self, input_dimension)
+        self.svm = svm
+
+    def transform(self, X):
+        return self.svm.decision_function(X)
+
+    def get_weights(self):
+        return np.hstack([self.svm.coef_, [self.svm.intercept_]])

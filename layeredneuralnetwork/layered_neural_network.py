@@ -43,7 +43,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         input_and_features = np.zeros(shape=[sample_count, self.input_dimension + len(self.labels)])
         input_and_features[:, :self.input_dimension] = X
         input_and_features[:, self.input_dimension:] = self.activate_all(X)
-        linear_svc = svm.LinearSVC()
+        linear_svc = svm.LinearSVC(dual=False, penalty='l1')
         linear_svc.fit(input_and_features, Y)
         score = linear_svc.score(input_and_features, Y)
         print('Trained new Linear SVC with score ' + str(score))
@@ -118,7 +118,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         return metrics.f1_score(Y, predicted_y)
 
     def get_weights(self):
-        weights = np.zeros(shape=[len(self.labels), self.input_dimension + len(self.labels) - 1])
+        weights = np.zeros(shape=[len(self.labels), self.input_dimension + len(self.labels)])
         for i, label in enumerate(self.labels):
             label_weight = self.node_manager.get_weight(self.label_to_node_name[label])
             weights[i, :label_weight.shape[0]] = label_weight

@@ -58,4 +58,4 @@ class NodeManager:
 
     def get_weight(self, node_name):
         node = self.node_name_to_node[node_name]
-        return node.transform_function.weights
+        return node.transform_function.get_weights()
