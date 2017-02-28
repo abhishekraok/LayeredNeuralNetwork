@@ -1,6 +1,8 @@
 # LayeredNeuralNetwork
 A transfer learning Neural Network that uses features learnt from past training.
 
+[![Build Status](https://travis-ci.org/abhishekraok/LayeredNeuralNetwork.svg?branch=master)](https://travis-ci.org/abhishekraok/LayeredNeuralNetwork)
+
 This is implementation of Layered Neural Network (LNN) first proposed in this [MS Thesis](https://etda.libraries.psu.edu/catalog/26405)
 
 The difference between normal classifier and this one is this is not reset after every training. 
