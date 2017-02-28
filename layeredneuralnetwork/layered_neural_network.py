@@ -3,12 +3,14 @@ import node_manager
 import node
 from sklearn import svm, metrics
 import transform_function
+from classifier_interface import ClassifierInterface
 
 retrain_threshold_f1_score = 0.9
 
 
-class LayeredNeuralNetwork():
+class LayeredNeuralNetwork(ClassifierInterface):
     def __init__(self, input_dimension):
+        ClassifierInterface.__init__(self, input_dimension)
         self.input_dimension = input_dimension
         self.node_manager = node_manager.NodeManager(input_dimension)
         self.label_to_node_name = {}

@@ -7,7 +7,7 @@ e.g. Learning XOR is easier if you know AND and OR task.
 After learning each task the classifier's score is calculated.
 As the classifier gets better more challenging tasks can be taught.
 """
-import layered_neural_network
+from layeredneuralnetwork.classifier_interface import ClassifierInterface
 import numpy as np
 
 
@@ -17,7 +17,7 @@ class Binary:
         """
         Teaches the AND task
 
-        :type classifier: layered_neural_network.LayeredNeuralNetwork
+        :type classifier: ClassifierInterface
         :return: F1 Score in learning this task
         """
         return Binary.teach_binary_function(classifier, 'and', lambda a, b: a and b)
@@ -27,7 +27,7 @@ class Binary:
         """
         Teaches the OR task
 
-        :type classifier: layered_neural_network.LayeredNeuralNetwork
+        :type classifier: ClassifierInterface
         :return: F1 Score in learning this task
         """
         return Binary.teach_binary_function(classifier, 'or', lambda a, b: a or b)
@@ -39,7 +39,7 @@ class Binary:
 
         Pre-requisite AND task, OR task.
 
-        :type classifier: layered_neural_network.LayeredNeuralNetwork
+        :type classifier: ClassifierInterface
         :return: F1 Score in learning this task
         """
         return Binary.teach_binary_function(classifier, 'xor', lambda a, b: int(a) ^ int(b))
@@ -49,7 +49,7 @@ class Binary:
         """
         Teaches the classifier to calculate a binary function fx
 
-        :type classifier: layered_neural_network.LayeredNeuralNetwork
+        :type classifier: ClassifierInterface
         :type label: str
         :param fx: a function that takes two input and returns a single output
         :return: F1 Score in learning this task
