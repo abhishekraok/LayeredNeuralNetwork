@@ -24,4 +24,4 @@ X is a numpy matrix of size (samples, features), Y is a numpy array of integers 
 1. Normalize input
 2. Create notebooks
 3. __str__
-
+4. naming nodes incrementally

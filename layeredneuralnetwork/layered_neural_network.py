@@ -4,6 +4,7 @@ import node
 from sklearn import svm, metrics
 import transform_function
 from classifier_interface import ClassifierInterface
+import utilities
 
 retrain_threshold_f1_score = 0.9
 
@@ -50,8 +51,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         learned_transform_function = transform_function.SVCTransformFunction(
             input_dimension=input_and_features.shape[1],
             svm=linear_svc)
-        # todo increment version rather than create random number
-        node_name = label + '_' + str(np.random.randint(low=0, high=999))
+        node_name = self.get_new_node_name(label)
         input_names = self.node_manager.get_input_names() + self.latest_node_names()
         new_node = node.Node(name=node_name,
                              input_names=input_names,
@@ -122,3 +122,19 @@ class LayeredNeuralNetwork(ClassifierInterface):
             label_weight = self.node_manager.get_weight(self.label_to_node_name[label])
             weights[i, :label_weight.shape[0]] = label_weight
         return weights
+
+    def get_new_node_name(self, label):
+        if label not in self.label_to_node_name:
+            return label + utilities.node_version_separator + '0'
+        old_node_name = self.label_to_node_name[label]
+        if utilities.node_version_separator in old_node_name:
+            components = old_node_name.split(utilities.node_version_separator)
+            version = components[-1]
+            if version.isdigit():
+                next_version = int(version) + 1
+                new_node_name = utilities.node_version_separator.join(
+                    components[:-1]) + utilities.node_version_separator + str(
+                    next_version)
+                if not self.node_manager.has_node_name(new_node_name):
+                    return new_node_name
+        return old_node_name + utilities.generate_random_string(20)

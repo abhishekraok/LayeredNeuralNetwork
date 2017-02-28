@@ -53,8 +53,8 @@ class NodeManager:
         for node in self.node_name_to_node.values():
             node.deactivate()
 
-    def has_node_name(self, label):
-        return label in self.node_name_to_node
+    def has_node_name(self, node_name):
+        return node_name in self.node_name_to_node
 
     def get_weight(self, node_name):
         node = self.node_name_to_node[node_name]

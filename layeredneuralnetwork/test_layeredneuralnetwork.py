@@ -4,6 +4,7 @@ from layered_neural_network import LayeredNeuralNetwork
 from node_manager import NodeManager
 from node import Node
 import transform_function
+import utilities
 
 
 class TestLayeredNeuralNetwork(unittest.TestCase):
@@ -38,6 +39,18 @@ class TestLayeredNeuralNetwork(unittest.TestCase):
         model.fit(X, Y, label)
         weights = model.get_weights()
         self.assertTrue(weights.flatten().shape[0], input_dimension)
+
+    def test_new_node_name(self):
+        label = 'hi'
+        expected_new_nod_name = 'hi' + utilities.node_version_separator + '0'
+        model = LayeredNeuralNetwork(2)
+        new_node_name = model.get_new_node_name(label)
+        self.assertEqual(expected_new_nod_name, new_node_name)
+        model.labels = [label]
+        model.label_to_node_name[label] = expected_new_nod_name
+        expected_new_nod_name2 = 'hi' + utilities.node_version_separator + '1'
+        new_node_name2 = model.get_new_node_name(label)
+        self.assertEqual(expected_new_nod_name2, new_node_name2)
 
 
 class TestNodeManager(unittest.TestCase):
