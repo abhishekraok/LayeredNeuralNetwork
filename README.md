@@ -21,13 +21,5 @@ X is a numpy matrix of size (samples, features), Y is a numpy array of integers 
 
 
 
-## To Do
-
-- Normalize input
-- Create notebooks
-- __str__
-- plot [classifier like scikit-learn](http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
-
-
-## Done 
-- naming nodes incrementally
+## Getting Started
+Check the notebooks in notebook/
