@@ -42,7 +42,7 @@ class Node:
         sample_size = X.shape[0]
         features = np.zeros(shape=[sample_size, self.transform_function_input_dimension])
         for column, node_name in enumerate(self.input_names):
-            features[:, column] = self.node_manager.get_output(X, node_name)
+            features[:, column] = self.node_manager.get_cached_output(X, node_name)
         calculated_output = self.transform_function.transform(features)
         self.set_output(calculated_output)
         return self.output

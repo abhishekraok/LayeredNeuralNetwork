@@ -2,8 +2,6 @@ import unittest
 import numpy as np
 from layeredneuralnetwork.layered_neural_network import LayeredNeuralNetwork
 from layeredneuralnetwork.node_manager import NodeManager
-from layeredneuralnetwork.node import Node
-from layeredneuralnetwork import transform_function
 from layeredneuralnetwork import utilities
 
 
@@ -59,5 +57,5 @@ class TestNodeManager(unittest.TestCase):
         sample_size = 500
         node_manager = NodeManager(input_dimension)
         X = np.random.rand(sample_size, input_dimension)
-        output = node_manager.get_output(X, 'input_0')
+        output = node_manager.clear_and_get_output(X, 'input_0')
         self.assertTrue(np.array_equal(X[:, 0], output))

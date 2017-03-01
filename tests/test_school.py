@@ -33,9 +33,8 @@ class TestLayeredNeuralNetworkSchool(unittest.TestCase):
         xor_score = binary.Binary.teach_xor(model)
         self.assertEqual(1, xor_score)
 
-    @unittest.skip('Need to investigate further')
     def test_frequency_all(self):
-        input_dimension = 20
+        input_dimension = 21
         model = LayeredNeuralNetwork(input_dimension=input_dimension)
-        score = frequency.Frequency.teach_all_frequency(model)
-        self.assertEqual(1, score)
+        score, detailed_report = frequency.Frequency.teach_all_frequency(model)
+        self.assertGreater(score, 0.9)

@@ -18,8 +18,9 @@ class NodeManager:
             self.node_name_to_node[input_node.name] = input_node
             self.input_nodes.append(input_node)
 
-    def get_output(self, X, node_name):
+    def clear_and_get_output(self, X, node_name):
         """
+        Clears working memory.
         Activates node with name node_name, and gets it's output.
 
         :param X: numpy array of size (samples, input_dimension)
@@ -32,6 +33,17 @@ class NodeManager:
         utilities.check_2d_shape(X, self.input_dimension)
         self.deactivate_all()
         self.activate_input(X)
+        return self.node_name_to_node[node_name].get_output(X)
+
+    def get_cached_output(self, X, node_name):
+        """
+        Gets the node's output.
+
+        :param X: numpy array of size (samples, input_dimension)
+        :type node_name: str
+        :return: numpy array of size (samples)
+        :rtype: np.array
+        """
         return self.node_name_to_node[node_name].get_output(X)
 
     def activate_input(self, X):

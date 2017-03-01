@@ -5,6 +5,7 @@ from sklearn import svm, metrics
 from layeredneuralnetwork import transform_function
 from layeredneuralnetwork.classifier_interface import ClassifierInterface
 from layeredneuralnetwork import utilities
+import time
 
 retrain_threshold_f1_score = 0.9
 
@@ -40,6 +41,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         return True
 
     def fit_new_node(self, X, Y, label):
+        start_time = time.time()
         sample_count = X.shape[0]
         input_and_features = np.zeros(shape=[sample_count, self.input_dimension + len(self.labels)])
         input_and_features[:, :self.input_dimension] = X
@@ -62,6 +64,8 @@ class LayeredNeuralNetwork(ClassifierInterface):
         if label not in self.label_to_node_name:
             self.labels.append(label)
             self.label_to_node_name[label] = node_name
+        time_taken_ms = round((time.time() - start_time) * 1000,3)
+        print('Training for {0} took {1} ms'.format(label, time_taken_ms))
 
     def latest_node_names(self):
         return [self.label_to_node_name[i] for i in self.labels]
@@ -78,7 +82,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         if not label in self.label_to_node_name:
             raise ValueError('No label named ' + label + ' in this LNN')
         node_name = self.label_to_node_name[label]
-        features = self.node_manager.get_output(X, node_name)
+        features = self.node_manager.clear_and_get_output(X, node_name)
         return np.array(features > 0.5, dtype=np.int)
 
 
@@ -92,7 +96,7 @@ class LayeredNeuralNetwork(ClassifierInterface):
         sample_count = X.shape[0]
         result = np.zeros(shape=[sample_count, self.feature_count()])
         for i, label in enumerate(self.labels):
-            result[:, i] = self.node_manager.get_output(X, self.label_to_node_name[label])
+            result[:, i] = self.node_manager.clear_and_get_output(X, self.label_to_node_name[label])
         return result
 
     def identify(self, X):
